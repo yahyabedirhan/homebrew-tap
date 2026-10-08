@@ -13,7 +13,9 @@
 # - Third-party taps aren't held to that check, but `--no-quarantine` is
 #   disabled (Homebrew 5.1.0, https://github.com/Homebrew/brew/pull/21629), so
 #   brew quarantines the app and the person passes Gatekeeper once by hand:
-#   the caveat below says how.
+#   the caveat below says how. The `binary` below is a link to the command
+#   inside that app, so Gatekeeper stops the first run of `havooch` too, not
+#   only the first launch of the app.
 # - Clearing the quarantine in the cask itself (`xattr` in a postflight) is
 #   what Homebrew asks taps not to do, and third-party cask flight blocks are
 #   deprecated until 2027-12-11 (https://brew.sh/2026/09/13/homebrew-7.0.0/).
@@ -22,8 +24,8 @@
 #   full name (yahyabedirhan/tap/havooch) trusts this one cask.
 #   https://docs.brew.sh/Tap-Trust
 cask "havooch" do
-  version "0.4.0"
-  sha256 "984e575511522fc19d48b2fd061276510c20ae634cbef45c6196b7bfc7f7581f"
+  version "0.4.1"
+  sha256 "f935efe31ae4110895c40035430f76da38021406f679c9cf1f777877f4b0c7e8"
 
   url "https://github.com/yahyabedirhan/havooch/releases/download/v#{version}/havooch-#{version}.zip"
   name "Havooch"
@@ -47,14 +49,16 @@ cask "havooch" do
   ]
 
   caveats <<~EOS
-    Havooch is ad-hoc signed and not notarized by Apple. On its first launch
-    macOS may say it can't check the app for malicious software. Then:
+    Havooch is ad-hoc signed and not notarized by Apple. The first time you
+    open Havooch or run `havooch` (the command is a link into the app), macOS
+    says "Havooch Not Opened": it can't check the app for malicious software.
+    Allow it once:
       1. Open System Settings > Privacy & Security.
       2. Next to the message about Havooch, click Open Anyway, then confirm.
     Or clear the quarantine flag yourself:
       xattr -dr com.apple.quarantine "#{appdir}/Havooch.app"
 
     For your coding agent, install the mate skill:
-      npx skills add yahyabedirhan/havooch --skill havooch-mate --global
+      npx skills add yahyabedirhan/havooch-mate --skill havooch-mate --global
   EOS
 end
