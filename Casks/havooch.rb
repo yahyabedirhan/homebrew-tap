@@ -24,8 +24,8 @@
 #   full name (yahyabedirhan/tap/havooch) trusts this one cask.
 #   https://docs.brew.sh/Tap-Trust
 cask "havooch" do
-  version "0.5.0"
-  sha256 "a4f3961c1a48326d7dc081c934e1e0c2b5307695056fd8a42a8e3d8d8c380334"
+  version "0.5.1"
+  sha256 "f1755f5f8b761f1ccce143b2ed1d6074ac57170194b7d8f86bc8aaf23199bc84"
 
   url "https://github.com/yahyabedirhan/havooch/releases/download/v#{version}/havooch-#{version}.zip"
   name "Havooch"
